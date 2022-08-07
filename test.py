@@ -10,11 +10,17 @@ from pandas.plotting import scatter_matrix
 import pickle
 import sys
 
-filename = sys.argv[0]
+filename = sys.argv[1]
 with open(filename, 'rb') as f:
     data = pickle.load(f)
 
-tcs['Open'].plot(label = 'TCS', figsize = (15,7))
-infy['Open'].plot(label = "Infosys")
-wipro['Open'].plot(label = 'Wipro')
-plt.title('Stock Prices of TCS, Infosys and Wipro')
+data['Close'].plot(label = 'INFY')
+extra = {}
+extra['MA50'] = data['Close'].rolling(50).mean()
+extra['MA200'] = data['Close'].rolling(200).mean()
+extra['MA50'].plot(label = '50 MA')
+extra['MA200'].plot(label = '200 MA')
+#data['Open'].plot(label = 'INFY', figsize = (15,7))
+plt.title('Stock Prices of Infosys')
+plt.legend()
+plt.show()
